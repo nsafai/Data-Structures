@@ -9,7 +9,7 @@ import string
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
-NUMCHARS = string.digits + string.ascii_lowercase # for base 36
+NUM_CHARS = string.digits + string.ascii_lowercase # for base 36
 
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
@@ -23,7 +23,7 @@ def decode(digits, base):
     answer = 0 # default value
 
     for power, digit in enumerate(reversed(digits)): # read from right side
-        answer += NUMCHARS.index(digit) * (base ** power)
+        answer += NUM_CHARS.index(digit) * (base ** power)
         
     return answer
 
@@ -46,7 +46,7 @@ def encode(number, base):
     
     while q is not 0:
         (q, r) = divmod(number, base) # divmod divides number by base and returns a tuple ()
-        answer += NUMCHARS[r] # find index that corresponds with character r
+        answer += NUM_CHARS[r] # find index that corresponds with character r
         number = q # number get divided by base with each operation
     
     return answer[::-1] # returns a string in reverse order
