@@ -20,12 +20,12 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
     digits = digits.lower() # convert all to lowercase so "A" is same as "a"
-    result = 0 # default value
+    answer = 0 # default value
 
     for power, digit in enumerate(reversed(digits)): # read from right side
-        result += NUMCHARS.index(digit) * (base ** power)
+        answer += NUMCHARS.index(digit) * (base ** power)
         
-    return result
+    return answer
 
     # return int(digits, base)
 
