@@ -19,9 +19,12 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
 
+    digits = digits.lower() # convert all to lowercase so "A" is same as "a"
     result = 0 # default value
+
     for power, digit in enumerate(reversed(digits)): # read from right side
         result += NUMCHARS.index(digit) * (base ** power)
+        
     return result
 
     # return int(digits, base)
@@ -42,9 +45,8 @@ def encode(number, base):
     r = None # r == remainder
     
     while q is not 0:
-        # divmod divides number by base and returns (quotient, remainder)
-        (q, r) = divmod(number, base)
-        answer += NUMCHARS[r] # find letter that corresponds
+        (q, r) = divmod(number, base) # divmod divides number by base and returns a tuple ()
+        answer += NUMCHARS[r] # find index that corresponds with character r
         number = q # number get divided by base with each operation
     
     return answer[::-1] # returns a string in reverse order
