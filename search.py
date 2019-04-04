@@ -24,10 +24,8 @@ def linear_search_recursive(array, item, index=0):
         return None 
         
 
-
 def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
-
     return binary_search_iterative(array, item)
     # return binary_search_recursive(array, item)
 
@@ -35,13 +33,10 @@ def binary_search(array, item):
 def binary_search_iterative(array, item):
     if len(array) == 0: # list is empty
         return None
-    
     accumulator = 0
-
     while len(array) > 0:
         middle_idx = int(len(array) / 2)
         middle_item = array[middle_idx]
-
         if middle_item == item:
             return middle_idx + accumulator
         if middle_item > item:
@@ -54,10 +49,8 @@ def binary_search_iterative(array, item):
 def binary_search_recursive(array, item, accumulator = 0):
     if len(array) == 0: # list is empty
         return None
-
     middle_idx = int(len(array) / 2)
     middle_item = array[middle_idx]
-
     if middle_item == item:
         return middle_idx + accumulator
     if middle_item > item:
