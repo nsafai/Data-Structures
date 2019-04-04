@@ -1,9 +1,8 @@
 #!python
+import math
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
-    # implement linear_search_iterative and linear_search_recursive below, then
-    # change this to call your implementation to verify it passes all tests
     # return linear_search_iterative(array, item)
     return linear_search_recursive(array, item)
 
@@ -17,36 +16,38 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
-    # TODO: implement linear search recursively here
-    pass
-    # once implemented, change linear_search to call linear_search_recursive
-    # to verify that your recursive implementation passes all tests
-    
-    if array[index] == item:
-        return index # bingo! found desired item, return index
-    if index < len(array) - 1: # check if index will still be in range
+    if array[index] == item: # if value at current index matches item
+        return index
+    elif index + 1 < len(array): # if next index will still be in range
         return linear_search_recursive(array, item, index + 1) # try searching at next index
-    return None # if you reach this point, you've reached end of list, return None
+    else: # reached end of list without finding item
+        return None 
         
 
 
 def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
-    # implement binary_search_iterative and binary_search_recursive below, then
-    # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
+
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
-    # TODO: implement binary search iteratively here
     pass
-    # once implemented, change binary_search to call binary_search_iterative
-    # to verify that your iterative implementation passes all tests
+    
 
 
-def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
-    pass
-    # once implemented, change binary_search to call binary_search_recursive
-    # to verify that your recursive implementation passes all tests
+def binary_search_recursive(array, item, accumulator = 0):
+    if len(array) == 0: # list is empty
+        return None
+
+    middle_idx = int(len(array) / 2)
+    middle_item = array[middle_idx]
+
+    if middle_item == item:
+        return middle_idx + accumulator
+    if middle_item > item:
+        return binary_search_recursive(array[:middle_idx], item, accumulator)
+    elif middle_item < item:
+        accumulator += len(array[:middle_idx]) + 1 # keeps track of how many sliced out of left side of array
+        return binary_search_recursive(array[middle_idx+1:], item, accumulator)
