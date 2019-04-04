@@ -9,7 +9,7 @@ import string
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
-NUM_CHARS = string.digits + string.ascii_lowercase # for base 36
+NUM_CHARS = string.digits + string.ascii_lowercase # for base 36, the chars are [0-9a-z]
 
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
