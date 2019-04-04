@@ -28,12 +28,27 @@ def linear_search_recursive(array, item, index=0):
 def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
 
-    # return binary_search_iterative(array, item)
-    return binary_search_recursive(array, item)
+    return binary_search_iterative(array, item)
+    # return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(array, item):
-    pass
+    if len(array) == 0: # list is empty
+        return None
+    
+    accumulator = 0
+
+    while len(array) > 0:
+        middle_idx = int(len(array) / 2)
+        middle_item = array[middle_idx]
+
+        if middle_item == item:
+            return middle_idx + accumulator
+        if middle_item > item:
+            return binary_search_recursive(array[:middle_idx], item, accumulator)
+        elif middle_item < item:
+            accumulator += len(array[:middle_idx]) + 1 # keeps track of how many sliced out of left side of array
+            return binary_search_recursive(array[middle_idx+1:], item, accumulator)
     
 
 
