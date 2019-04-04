@@ -17,12 +17,12 @@ def factorial_iterative(n):
     pass
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests
+
     answer = 1 # default value for 0 and 1
     while n > 1:
         answer = answer * n
         n = n - 1
     return answer
-
 
 
 def factorial_recursive(n):
