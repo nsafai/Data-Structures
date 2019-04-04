@@ -51,7 +51,6 @@ def binary_search_iterative(array, item):
             return binary_search_recursive(array[middle_idx+1:], item, accumulator)
     
 
-
 def binary_search_recursive(array, item, accumulator = 0):
     if len(array) == 0: # list is empty
         return None
