@@ -42,10 +42,10 @@ def encode(number, base):
 
     answer = ""
     q = None # q == quotient
-    r = None # r == remainder
+    # r == remainder
     
     while q is not 0:
-        (q, r) = divmod(number, base) # divmod divides number by base and returns a tuple ()
+        (q, r) = divmod(number, base) # divmod divides number by base and returns (quotient, remainder)
         answer += NUM_CHARS[r] # find index that corresponds with character r
         number = q # number get divided by base with each operation
     

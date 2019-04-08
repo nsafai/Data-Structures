@@ -12,11 +12,11 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    answer = 1 # default value for 0 and 1
+    product = 1 # default value for 0 and 1
     while n > 1:
-        answer = answer * n
-        n = n - 1
-    return answer
+        product *= n
+        n -= 1
+    return product
 
 
 def factorial_recursive(n):
