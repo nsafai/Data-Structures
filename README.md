@@ -11,3 +11,9 @@ Coursework for Make School's CS 1.3 Data Structures class
 `search.py`: Recursive linear and binary search algorithms
 `search_test.py`: unit tests for `search.py`
 
+`palindromes.py`: Palindrome checking function
+`palindromes_test.py`: unit tests for `palindrome.py`
+
+`string.py`: SString searching functions
+`string_test.py`: unit tests for `string.py`
+
