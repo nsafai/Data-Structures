@@ -13,39 +13,34 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    # return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text)
+    text = re.sub(r'\W+', '', text).lower() # removes spaces, punctuation & capitalization
+    return is_palindrome_iterative(text)
+    # return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
     if len(text) == 0: # if text is an empty string ''
         return True
 
-    median_idx = (len(text) // 2) + 1 # get midpoint of word
-    text = re.sub(r'\W+', '', text).lower() # removes spaces, punctuation & capitalization
+    median_idx = (len(text) // 2) # get midpoint of word
 
     for i in range(median_idx): # for every index until midpoint of word
-        if text[i] == text[-(i + 1)]: # if 1st letter same as last
-            pass
-        else:
+        if text[i] != text[-(i + 1)]: # if 1st letter same as last letter
             return False
-    return True
+
+    return True # reached end of word
 
 
-def is_palindrome_recursive(text, left=None, right=None):
+def is_palindrome_recursive(text, left=0, right=None):
     
-    if left == None: # only true first time this function gets called
-        text = re.sub(r'\W+', '', text).lower()
-        left = 0
+    if right == None: # only true first time this function gets called
         right = len(text) - 1
     
-    if left >= right: # exit condition --> reached middle of word
+    if left >= right: # reached middle of word --> exit
         return True
     
     if text[left] == text[right]: # letter at left index is same as right
-        left += 1
-        right -= 1
-        return is_palindrome_recursive(text, left, right)
+        return is_palindrome_recursive(text, left + 1, right - 1)
     else:
         return False
 
