@@ -13,7 +13,8 @@ def find_index(text, pattern):
     elif len(pattern) > len(text): # pattern is too long to fit in text
         return None
 
-    for text_idx in range(len(text)): # for every letter in text
+    # for every letter in text while there's enough text left to fit pattern
+    for text_idx in range(len(text) - len(pattern) + 1):
         for pattern_idx, pattern_letter in enumerate(pattern): # look ahead for length of pattern to determine if there's a match
             if text[text_idx + pattern_idx] == pattern_letter: # if letters match
                 num_correct_letters += 1
