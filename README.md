@@ -14,6 +14,9 @@ Coursework for Make School's CS 1.3 Data Structures class
 `palindromes.py`: Palindrome checking function
 `palindromes_test.py`: unit tests for `palindrome.py`
 
-`string.py`: SString searching functions
+`string.py`: String searching functions
 `string_test.py`: unit tests for `string.py`
+
+`linkedlist.py`: String searching functions
+`linkedlist_test.py`: unit tests for `linkedlist.py`
 
