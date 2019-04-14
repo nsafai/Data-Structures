@@ -6,21 +6,34 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    if pattern in text:
-        return text.index(pattern)
-    else:
-        return None
+    num_correct_letters = 0
+
+    if len(pattern) == 0: # for pattern ''
+        return 0 # all strings contain empty string
+
+    for text_idx, _ in enumerate(text): # for every letter in text
+        for pattern_idx, pattern_letter in enumerate(pattern): # look ahead for length of pattern to determine if there's a match
+            if text[text_idx + pattern_idx] == pattern_letter: # if letters match
+                num_correct_letters += 1
+            else: # if letters do not match
+                num_correct_letters = 0
+                break
+
+            if num_correct_letters >= len(pattern): # if we've found full pattern
+                return text_idx # return index of starting letter inside text
+
+    return None # reached end of word without finding a match
+
+    # return text.index(pattern) if pattern in text else None # using built in python methods
 
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-
-    if pattern in text:
-        return True
-    else:
-        return False
+    
+    return False if find_index(text, pattern) == None else True
+    # return True if pattern in text else False # using built in python methods
 
 
 def find_all_indexes(text, pattern, answer=[]):
@@ -29,12 +42,16 @@ def find_all_indexes(text, pattern, answer=[]):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    while len(text) > len(pattern):
-        newest_index = find_index(text, pattern)
-        answer.append(newest_index)
-        return find_all_indexes(text, pattern, answer=[])
+    latest_index = answer[-1]
+
+    while find_index(text, pattern[latest_index:]) != None:
+        answer.append(find_index(text, pattern[latest_index:]))
     
-    return answer
+    if answer == []:
+        return None
+    else:
+        return answer
+
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
