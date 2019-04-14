@@ -26,7 +26,6 @@ def find_index(text, pattern):
                 return text_idx # return index of starting letter inside text
 
     return None # reached end of word without finding a match
-
     # return text.index(pattern) if pattern in text else None # using built in python methods
 
 
@@ -58,12 +57,11 @@ def find_all_indexes(text, pattern):
     while latest != None:
         answer.append(latest)
         off_set = latest + 1
-        if find_index(text[off_set:], pattern) != None:
-            latest = find_index(text[off_set:], pattern) + off_set
-        else:
-            latest = None
+        if find_index(text[off_set:], pattern) != None: # while there are more matches
+            latest = find_index(text[off_set:], pattern) + off_set # update latest
+        else: # no more indexes to find
+            latest = None # update latest
         
-    print(answer)
     return answer
 
 def test_string_algorithms(text, pattern):
