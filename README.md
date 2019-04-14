@@ -8,5 +8,5 @@ Each folder contains it's own unit tests
 - [`palindromes`](/tree/master/palindromes): Palindrome checking function (iterative and recursive)
 - [`recursion`](/tree/master/recursion): Get a number's factorial (iterative and recursive)
 - [`search`](/tree/master/search): Recursive linear and binary search algorithms
-- [`strings`](/tree/master/strings): String searching functions
+- [`strings`](/tree/master/strings): Substring pattern-matching search functions
 
