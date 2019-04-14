@@ -16,6 +16,9 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
+    '''time complexity -    Best: O(1) -- first and last letters don't match
+                            Worst: O(n) -- go through each letter once
+    '''
     left = 0 # starts as first letter
     right = len(text) - 1 # starts as last letter
 
@@ -42,6 +45,9 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=0, right=None):
+    '''time complexity -    Best: O(1) -- first and last letters don't match
+                            Worst: O(n) -- go through each letter once
+    '''
     
     if right == None: # only true first time this function gets called
         right = len(text) - 1
