@@ -1,27 +1,40 @@
 #!python
 
-def contains(text, pattern):
-    """Return a boolean indicating whether pattern occurs in text."""
-    assert isinstance(text, str), 'text is not a string: {}'.format(text)
-    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement contains here (iteratively and/or recursively)
-
-
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
+
+    if pattern in text:
+        return text.index(pattern)
+    else:
+        return None
 
 
-def find_all_indexes(text, pattern):
+def contains(text, pattern):
+    """Return a boolean indicating whether pattern occurs in text."""
+    assert isinstance(text, str), 'text is not a string: {}'.format(text)
+    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+
+    if pattern in text:
+        return True
+    else:
+        return False
+
+
+def find_all_indexes(text, pattern, answer=[]):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
 
+    while len(text) > len(pattern):
+        newest_index = find_index(text, pattern)
+        answer.append(newest_index)
+        return find_all_indexes(text, pattern, answer=[])
+    
+    return answer
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)

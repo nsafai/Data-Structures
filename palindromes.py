@@ -5,7 +5,7 @@ import re
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
-letters = string.ascii_letters
+LETTERS = set(string.ascii_letters)
 
 def is_palindrome(text):
     """A string of characters is a palindrome if it reads the same forwards and
@@ -13,20 +13,32 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    text = re.sub(r'\W+', '', text).lower() # removes spaces, punctuation & capitalization
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
-    if len(text) == 0: # if text is an empty string ''
-        return True
+    left = 0 # starts as first letter
+    right = len(text) - 1 # starts as last letter
 
-    median_idx = (len(text) // 2) # get midpoint of word
+    while left < right: # until we reach middle of word and left = right
 
-    for i in range(median_idx): # for every index until midpoint of word
-        if text[i] != text[-(i + 1)]: # if 1st letter same as last letter
-            return False
+        if text[left] not in LETTERS: # if left is not a letter
+            left += 1 # skip that character
+        if text[right] not in LETTERS: # if right not a letter
+            right -= 1 # skip that character
+
+        if text[left] in LETTERS and text[right] in LETTERS:
+            if text[left] == text[right]: # if letters are same w/o changing case
+                # keep shrinking window
+                left += 1
+                right -= 1
+            elif text[left].lower() == text[right].lower(): # if letters are same in lowercase
+                # keep shrinking window
+                left += 1
+                right -= 1
+            else: # if letters are different
+                return False
 
     return True # reached end of word
 
@@ -36,10 +48,17 @@ def is_palindrome_recursive(text, left=0, right=None):
     if right == None: # only true first time this function gets called
         right = len(text) - 1
     
-    if left >= right: # reached middle of word --> exit
+    if left > right: # reached middle of word, b/c when left == right, it is the same letter
         return True
+
+    if text[left] not in LETTERS:
+        return is_palindrome_recursive(text, left + 1, right) # skip text[left] if not a letter
+    if text[right] not in LETTERS:
+        return is_palindrome_recursive(text, left, right - 1) # skip text[right] if not a letter
     
-    if text[left] == text[right]: # letter at left index is same as right
+    if text[left] == text[right]: # letters are same w/o changing case
+        return is_palindrome_recursive(text, left + 1, right - 1)
+    elif text[left].lower() == text[right].lower(): # if letters are same in lowercase
         return is_palindrome_recursive(text, left + 1, right - 1)
     else:
         return False
