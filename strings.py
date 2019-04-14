@@ -49,14 +49,14 @@ def find_all_indexes(text, pattern):
     if pattern == '': # searching for empty string, return all results
         return range(len(text)) # there's a blank character at each index
 
-    latest = find_index(text, pattern)
+    latest = find_index(text, pattern) # append latest index where pattern starts within text
 
     if latest == None:
         return answer
 
     while latest != None:
-        answer.append(latest)
-        off_set = latest + 1
+        answer.append(latest) # append latest index where pattern starts within text
+        off_set = latest + 1 # off_set represents the next item to search == index after latest
         if find_index(text[off_set:], pattern) != None: # while there are more matches
             latest = find_index(text[off_set:], pattern) + off_set # update latest
         else: # no more indexes to find
