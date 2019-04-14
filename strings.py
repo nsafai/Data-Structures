@@ -10,8 +10,10 @@ def find_index(text, pattern):
 
     if len(pattern) == 0: # for pattern ''
         return 0 # all strings contain empty string
+    elif len(pattern) > len(text): # pattern is too long to fit in text
+        return None
 
-    for text_idx, _ in enumerate(text): # for every letter in text
+    for text_idx in range(len(text)): # for every letter in text
         for pattern_idx, pattern_letter in enumerate(pattern): # look ahead for length of pattern to determine if there's a match
             if text[text_idx + pattern_idx] == pattern_letter: # if letters match
                 num_correct_letters += 1
@@ -36,22 +38,32 @@ def contains(text, pattern):
     # return True if pattern in text else False # using built in python methods
 
 
-def find_all_indexes(text, pattern, answer=[]):
+def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
-    latest_index = answer[-1]
+    answer = []
 
-    while find_index(text, pattern[latest_index:]) != None:
-        answer.append(find_index(text, pattern[latest_index:]))
-    
-    if answer == []:
-        return None
-    else:
+    if pattern == '': # searching for empty string, return all results
+        return range(len(text)) # there's a blank character at each index
+
+    latest = find_index(text, pattern)
+
+    if latest == None:
         return answer
 
+    while latest != None:
+        answer.append(latest)
+        off_set = latest + 1
+        if find_index(text[off_set:], pattern) != None:
+            latest = find_index(text[off_set:], pattern) + off_set
+        else:
+            latest = None
+        
+    print(answer)
+    return answer
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
