@@ -80,8 +80,8 @@ class LinkedList(object):
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: O(n) where n is # of nodes (if n < i)
-        Worst case running time: O(i) where i is index given"""
+        Best case running time: O(1) if adding at head
+        Worst case running time: O(n) where n is # of nodes (if n < i)"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
@@ -97,31 +97,29 @@ class LinkedList(object):
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: O(n) where n is # of nodes (if n < i)
-        Worst case running time: O(i) where i is index given"""
+        Best case running time: O(1) if inserting at head or tail
+        Worst case running time: O(n) where n is # of nodes"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
 
         # Deal with easy edge cases up-front
         if index == 0: # If adding to front of LL
-            return self.prepend(item)
+            self.prepend(item) 
         elif index == self.size: # If adding to end of LL
-            return self.append(item)
-            
-        # At this point, we know that (1) LL is not empty & (2) we are not adding to head or tail
-        new_node = Node(item) # create node from item data
-        cur_node = self.head # start at head
-        cur_idx = 1 # start at first index (we can skip 0 since we know we are not adding to head)
+            self.append(item)
+        else: # (1) LL is not empty & (2) we are not adding to head or tail
+            new_node = Node(item) # create node from item data
+            cur_node = self.head # start at head
 
-        while cur_idx < index: # iterate thru LL until we reach index
-            cur_node = cur_node.next
-            cur_idx += 1
+            while index > 1: # iterate thru LL until we reach index
+                cur_node = cur_node.next
+                index -= 1
 
-        # At this point, we know that cur_node is the node before given index
-        new_node.next = cur_node.next # get node's next pointer before re-assigning it            
-        cur_node.next = new_node # re-assign node's next to new item 
-        self.size += 1 # update LL size
+            # At this point, cur_node is the node before given index
+            new_node.next = cur_node.next # get node's next pointer before re-assigning it            
+            cur_node.next = new_node # re-assign node's next to new item 
+            self.size += 1 # update LL size
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -142,7 +140,7 @@ class LinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(1), always adding at head"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -159,7 +157,7 @@ class LinkedList(object):
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
-        Best case running time: Omega(1) if item is near the head of the list.
+        Best case running time: O(1) if item is near the head of the list.
         Worst case running time: O(n) if item is near the tail of the list or
         not present and we need to loop through all n nodes in the list."""
         # Start at the head node
