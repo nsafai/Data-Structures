@@ -108,7 +108,7 @@ class LinkedList(object):
             self.prepend(item) 
         elif index == self.size: # If adding to end of LL
             self.append(item)
-        else: # (1) LL is not empty & (2) we are not adding to head or tail
+        else: # (1) index is valid (2) not adding to head or tail
             new_node = Node(item) # create node from item data
             cur_node = self.head # start at head
 
