@@ -178,19 +178,23 @@ class LinkedList(object):
         using the same node, or raise ValueError if old_item is not found.
         Best case running time: O(1) if old_item is first item in list
         Worst case running time: O(n) if old_item doesn't exist"""
-         
+
+        if self.tail.data == old_item: # check last item in list since append is common
+            self.tail.data = new_item  # our work is done, break out of the function
+            return
+
         node = self.head # Start at the head node
 
-        # Loop until the node is None, which is one node too far past the tail
-        while node is not None:
+        # Loop until the tail, which we already know isn't the item we're looking for
+        while node is not self.tail:
             if node.data == old_item: # found old_item to be replaced
                 node.data = new_item
-                break
+                return # our work is done, break out of the function
             else: # need to keep looking
                 node = node.next
 
-        if node is None: # we've gone thru entire LL without finding old_item
-            raise ValueError('Item not in list: {}'.format(old_item))
+        # we've gone thru entire LL without finding old_item
+        raise ValueError('Item not in list: {}'.format(old_item))
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
