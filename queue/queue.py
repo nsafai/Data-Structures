@@ -22,25 +22,28 @@ class LinkedQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        # TODO: Check if empty
+        return True if self.list.size == 0 else False
 
     def length(self):
         """Return the number of items in this queue."""
-        # TODO: Count number of items
+        return self.list.size
 
     def enqueue(self, item):
         """ Insert given item at back of queue
         Running time: O(???)"""
-        pass
+        self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        # TODO: Return front item, if any
+        head = self.list.head
+        return None if head is None else head.data
     
-    def deque(self):
+    def dequeue(self):
         """Remove and return item at front of queue or raise ValueError if queue empty"""
-        pass
+        head = self.front()
+        self.list.delete(head)
+        return head
 
 
 # Implement ArrayQueue below, then change the assignment at the bottom
@@ -61,23 +64,23 @@ class ArrayQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        # TODO: Check if empty
+        return True if len(self.list) == 0 else False
 
     def length(self):
         """Return the number of items in this queue."""
-        # TODO: Count number of items
+        return len(self.list)
     
     def enqueue(self, item):
         """ Insert given item at back of queue
         Running time: O(???)"""
-        pass
+        self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
         # TODO: Return front item, if any
 
-    def deque(self):
+    def dequeue(self):
         """Remove and return item at front of queue or raise ValueError if queue empty"""
         pass
 
