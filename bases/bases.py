@@ -26,9 +26,9 @@ def decode(digits, base):
         answer += NUM_CHARS.index(digit) * (base ** power)
         
     return answer
-
     # return int(digits, base)
 
+decode("-233", 16)
 
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.

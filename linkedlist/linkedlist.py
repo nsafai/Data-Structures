@@ -180,11 +180,11 @@ class LinkedList(object):
         Worst case running time: O(n) if old_item doesn't exist"""
 
         if self.tail.data == old_item: # check last item in list since append is common
-            self.tail.data = new_item  # our work is done, break out of the function
-            return
+            self.tail.data = new_item
+            return # our work is done, break out of the function
 
         node = self.head # Start at the head node
-
+        
         # Loop until the tail, which we already know isn't the item we're looking for
         while node is not self.tail:
             if node.data == old_item: # found old_item to be replaced
@@ -240,6 +240,7 @@ class LinkedList(object):
                 self.tail = previous
             # Update size because node was found and deleted
             self.size -= 1
+            return item
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
