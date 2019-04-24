@@ -1,4 +1,4 @@
-from set_hashtable import Set
+from set import Set
 import unittest
 
 if not hasattr(unittest.TestCase, 'assertCountEqual'):
