@@ -47,8 +47,18 @@ class Set(HashTable):
         return a new set with items found in both this set and other_set
         """
         intersection_set = Set()
-        for element in self.keys():
-            if other_set.contains(element):
+
+        # Find smaller set
+        if self.size < other_set.size:
+            smaller_set = self
+            bigger_set = other_set
+        else:
+            smaller_set = other_set
+            bigger_set = self
+        
+        # Loop through every item of smaller set to save time
+        for element in smaller_set.keys():
+            if bigger_set.contains(element):
                 intersection_set.set(element)
         return intersection_set
 
