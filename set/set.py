@@ -14,6 +14,20 @@ class Set(HashTable):
         for item in items:
             self.add(item)
 
+    def __str__(self):
+        """Return a formatted string representation of this Set."""
+        items = ['({!r})'.format(item) for item in self.keys()]
+        return ''.join(items)
+
+    def __iter__(self):
+        """Make the Set iterable and return the keys of the items."""
+        for item in self.keys():
+            yield item
+
+    def __repr__(self):
+        """Return a string representation of this Set."""
+        return '({!r})'.format(self.keys())
+
     def add(self, element):
         """
         add element to this set, if not present already
@@ -35,10 +49,10 @@ class Set(HashTable):
         """
         union_set = Set()
         # Append each element in first set
-        for element in self.keys():
+        for element in self:
             union_set.add(element)
         # Append each element in second set
-        for element in other_set.keys():
+        for element in other_set:
             union_set.add(element)
         return union_set
 
@@ -57,7 +71,7 @@ class Set(HashTable):
             bigger_set = self
         
         # Loop through every item of smaller set to save time
-        for element in smaller_set.keys():
+        for element in smaller_set:
             if bigger_set.contains(element):
                 intersection_set.set(element)
         return intersection_set
@@ -67,7 +81,7 @@ class Set(HashTable):
         return a new set that contains items appearing in this set but not other_set
         """
         difference_set = Set()
-        for element in self.keys():
+        for element in self:
             if not other_set.contains(element):
                 difference_set.set(element)
         return difference_set
@@ -76,7 +90,7 @@ class Set(HashTable):
         """
         return a boolean indicating whether other_set is a subset of this set
         """
-        for element in other_set.keys():
+        for element in other_set:
             if not self.contains(element):
                 return False
         return True
