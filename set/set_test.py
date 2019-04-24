@@ -8,9 +8,11 @@ if not hasattr(unittest.TestCase, 'assertCountEqual'):
 class SetTest(unittest.TestCase):
 
     def test_init(self):
-        s = Set(20)
-        assert s.max_size == 20
-        assert s.size == 0
+        s1 = Set(20)
+        assert s1.max_size == 20
+        assert s1.size == 0
+        s2 = Set(4, ['cat', 'dog', 'fish'])
+        assert s2.size == 3
 
     def test_contains(self):
         """
