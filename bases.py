@@ -1,14 +1,8 @@
 #!python
 
 import string
-# Hint: Use these string constants to encode/decode hexadecimal digits and more
 # string.digits is '0123456789'
-# string.hexdigits is '0123456789abcdefABCDEF'
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
-# string.printable is digits + ascii_letters + punctuation + whitespace
-
 NUM_CHARS = string.digits + string.ascii_lowercase # for base 36, the chars are [0-9a-z]
 
 def decode(digits, base):
@@ -27,8 +21,6 @@ def decode(digits, base):
         
     return answer
     # return int(digits, base)
-
-decode("-233", 16)
 
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.

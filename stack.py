@@ -1,7 +1,5 @@
 #!python
-import sys # required for imports from a different folder
-sys.path.append("..") # import any modules/folders present in parent folder
-from linkedlist.linkedlist import LinkedList # from folder.filename import Class
+from linkedlist import LinkedList # from folder.filename import Class
 
 # Implement LinkedStack below, then change the assignment at the bottom
 # to use this Stack implementation to verify it passes all tests

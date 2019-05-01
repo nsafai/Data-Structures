@@ -1,7 +1,5 @@
 #!python
-import sys # required for imports from a different folder
-sys.path.append("..") # import any modules/folders present in parent folder
-from hashtable.hashtable import HashTable # from folder.filename import Class
+from hashtable import HashTable # from folder.filename import Class
 
 # Pair programmed with https://github.com/alishalabi/
 class Set(HashTable):
