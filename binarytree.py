@@ -199,7 +199,6 @@ class BinarySearchTree(object):
         in this tree, or None if this tree is empty or has only a root node.
         Search is performed recursively starting from the given node
         (give the root node to start recursion)."""
-
         # Check if reached end of list
         if node is None:
             # parent will None on first run
@@ -241,13 +240,12 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
-        if node.left:
+        if node: # is not empty
+            # Traverse left subtree, if it exists
             self._traverse_in_order_recursive(node.left, visit)
-        # TODO: Visit this node's data with given function
-        visit(node.data)
-        # TODO: Traverse right subtree, if it exists
-        if node.right:
+            # Visit this node's data with given function
+            visit(node.data)
+            # Traverse right subtree, if it exists
             self._traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
@@ -271,13 +269,12 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # Visit this node's data with given function
-        visit(node.data)
-        # Traverse left subtree, if it exists
-        if node.left:
+        if node: # is not empty
+            # Visit this node's data with given function
+            visit(node.data)
+            # Traverse left subtree, if it exists
             self._traverse_pre_order_recursive(node.left, visit)
-        # Traverse right subtree, if it exists
-        if node.right:
+            # Traverse right subtree, if it exists
             self._traverse_pre_order_recursive(node.right, visit)
 
     def _traverse_pre_order_iterative(self, node, visit):
@@ -301,14 +298,13 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # Traverse left subtree, if it exists
-        if node.left:
+        if node: # is not empty
+            # Traverse left subtree, if it exists
             self._traverse_post_order_recursive(node.left, visit)
-        # Traverse right subtree, if it exists
-        if node.right:
+            # Traverse right subtree, if it exists
             self._traverse_post_order_recursive(node.right, visit)
-        # Visit this node's data with given function
-        visit(node.data)
+            # Visit this node's data with given function
+            visit(node.data)
 
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
