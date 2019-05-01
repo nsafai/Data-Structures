@@ -43,8 +43,9 @@ class BinarySearchTree(object):
         """Initialize this binary search tree and insert the given items."""
         self.root = None
         self.size = 0
-        if items is not None:
+        if items:
             for item in items:
+                print(item)
                 self.insert(item)
 
     def __repr__(self):
@@ -94,28 +95,19 @@ class BinarySearchTree(object):
             self.size += 1
             return
         # Find the parent node of where the given item should be inserted
-        parent = self.root
-        inserted = False
-
-        while inserted == False:
-            # TODO: Check if the given item should be inserted left of parent node
-            if item < parent.data:
-                # TODO: Create a new node and set the parent's left child
-                if parent.left is None:
-                    parent.left = BinaryTreeNode(item)
-                    inserted = True
-                else:
-                    parent = parent.left
-            # TODO: Check if the given item should be inserted right of parent node
-            elif item > parent.data:
-                # TODO: Create a new node and set the parent's right child
-                if parent.right is None:
-                    parent.right = BinaryTreeNode(item)
-                    inserted = True
-                else:
-                    parent = parent.right
-            # TODO: Increase the tree size
-            self.size += 1
+        if self._find_parent_node_iterative(item) == None:
+            parent = self.root
+        else:
+            parent = self._find_parent_node_iterative(item)
+        # Check if the given item should be inserted left of parent node
+        if item < parent.data:
+            # Create a new node and set the parent's left child
+            parent.left = BinaryTreeNode(item)
+        # Check if the given item should be inserted right of parent node
+        elif item > parent.data:
+            # Create a new node and set the parent's right child
+            parent.right = BinaryTreeNode(item)
+        self.size += 1
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -172,29 +164,36 @@ class BinarySearchTree(object):
         Search is performed iteratively starting from the root node.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
-        # Start with the root node and keep track of its parent
-        node = self.root
-        parent = None
-        # Loop until we descend past the closest leaf node
-        while node is not None:
-            # TODO: Check if the given item matches the node's data
-            if node.data == item:
-                # Return the parent of the found node
-                return parent
-            # TODO: Check if the given item is less than the node's data
-            elif node.data < item:
-                # TODO: Update the parent and descend to the node's left child
-                # parent = ...
-                # node = ...
-                pass
-            # TODO: Check if the given item is greater than the node's data
-            elif node.data > item:
-                # TODO: Update the parent and descend to the node's right child
-                # parent = ...
-                # node = ...
-                pass
-        # Not found
-        return parent
+        # return None if this tree is empty or has only a root node
+        if self.root is None or self.root.is_leaf():
+            return None
+        else:
+            # Start with the root node and keep track of its parent
+            parent = self.root
+            # Loop until we descend past the closest leaf node
+            while parent is not None:
+                # TODO: Check if the given item matches the node's data
+                if parent.data == item:
+                    # Return the parent of the found node
+                    return parent
+                # Check if the given item is less than the node's data
+                elif item < parent.data:
+                    # Check if there's space to add the item at parent left
+                    if parent.left is None:
+                        return parent
+                    # If there is not space to add an item, keep moving down the tree
+                    else:
+                        parent = parent.left
+                # Check if the given item is greater than the node's data
+                elif item > parent.data:
+                    # Check if there's space to add the item at parent right
+                    if parent.right is None:
+                        return parent
+                    # If there is not space to add an item, keep moving down the tree
+                    else:
+                        parent = parent.right
+            # Not found, return parent that is a leaf
+            # return parent
 
     def _find_parent_node_recursive(self, item, node, parent=None):
         """Return the parent node of the node containing the given item
@@ -206,18 +205,18 @@ class BinarySearchTree(object):
         if node is None:
             # Not found (base case)
             return None
-        # TODO: Check if the given item matches the node's data
+        # Check if the given item matches the node's data
         if node.data == item:
             # Return the parent of the found node
             return parent
-        # TODO: Check if the given item is less than the node's data
+        # Check if the given item is less than the node's data
         elif node.data < item:
-            # TODO: Recursively descend to the node's left child, if it exists
-            return self._find_parent_node_recursive(self, item, node.left, parent=node)
-        # TODO: Check if the given item is greater than the node's data
+            # Recursively descend to the node's left child, if it exists
+            return self._find_parent_node_recursive(item, node.left, node)
+        # Check if the given item is greater than the node's data
         elif node.data > item:
-            # TODO: Recursively descend to the node's right child, if it exists
-            return self._find_parent_node_recursive(self, item, node.right, parent=node)  # Hint: Remember to update the parent parameter
+            # Recursively descend to the node's right child, if it exists
+            return self._find_parent_node_recursive(item, node.right, node)  # Hint: Remember to update the parent parameter
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
@@ -242,11 +241,13 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # TODO: Traverse left subtree, if it exists
-        pass
+        if node.left:
+            self._traverse_in_order_recursive(node.left, visit)
         # TODO: Visit this node's data with given function
-        pass
+        visit(node.data)
         # TODO: Traverse right subtree, if it exists
-        pass
+        if node.right:
+            self._traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative in-order traversal (DFS).
@@ -353,6 +354,7 @@ def test_binary_search_tree():
     for item in items:
         tree.insert(item)
         print('insert({}), size: {}'.format(item, tree.size))
+        print('tree: {}'.format(tree))
     print('root: {}'.format(tree.root))
 
     print('\nSearching for items:')

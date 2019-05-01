@@ -1,11 +1,5 @@
 #!python
 
-# Stretch Challenges
-# Implement DoublyLinkedList class with BinaryNode objects, which have both next and previous properties
-# Write unit tests for to ensure the DoublyLinkedList class is robust
-# Include test cases for each class instance method and property
-# Annotate methods with complexity analysis of running time and space (memory)
-
 class Node(object):
 
     def __init__(self, data):
