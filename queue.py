@@ -41,8 +41,12 @@ class LinkedQueue(object):
         """Remove and return item at front of queue or raise ValueError if queue empty
         Running time: O(1) since only need to change pointer to head"""
         head = self.front()
-        self.list.delete(head)
-        return head
+        print("length is:", self.length(), "and front is:", self.front(), "and list looks like:", self.list)
+        if head == None:
+            raise ValueError("list is empty")
+        else:
+            self.list.delete(head)
+            return head
 
 
 # Implement ArrayQueue below, then change the assignment at the bottom
@@ -63,7 +67,7 @@ class ArrayQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        return True if len(self.list) == 0 else False
+        return True if self.length() <= 0 else False
 
     def length(self):
         """Return the number of items in this queue."""
@@ -82,9 +86,11 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return item at front of queue or raise ValueError if queue empty
         Running time: O(n) since all array items have to shift"""
+        print("length is:", self.length(), "and front is:", self.front(), "and list looks like:", self.list)
         if self.front() == None:
             raise ValueError("list is empty")
         else:
+            print(self)
             return self.list.pop(0)
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
