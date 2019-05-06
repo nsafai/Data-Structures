@@ -1,5 +1,6 @@
 #!python
 from queue import Queue
+from stack import Stack
 
 class BinaryTreeNode(object):
 
@@ -289,7 +290,8 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree post-order from root, appending each node's item
-            self._traverse_post_order_recursive(self.root, items.append)
+            # self._traverse_post_order_recursive(self.root, items.append)
+            self._traverse_post_order_iterative(self.root, items.append)
         # Return post-order list of all items in tree
         return items
 
@@ -311,7 +313,30 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse post-order without using recursion (stretch challenge)
+        # Traverse post-order without using recursion (stretch challenge)
+        traversed = set()
+        # Create queue to store nodes not yet traversed
+        stack = Stack()
+        # Enqueue root node as last
+        stack.push(node)
+        while not stack.is_empty():
+            node = stack.peek()
+            if node.right and node.right not in traversed:
+                stack.push(node.right)
+            if node.left and node.left not in traversed:
+                stack.push(node.left)
+            if (
+                node.is_leaf()
+                or node.left is None and node.right in traversed 
+                or node.left in traversed and node.right is None
+                or node.left in traversed and node.right in traversed
+            ):
+                node = stack.pop()
+                visit(node.data)
+                traversed.add(node)
+
+        
+            
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
@@ -325,8 +350,13 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        - Running time: O(n) where n is number of nodes in the tree, 
+        because we want to visit every node.
+        - Memory usage: O(2^h) where h is height of the tree, 
+        as that is the most items that will be in a queue at a single time
+        ( at the bottom of the tree )
+        In a balanced tree, this can also be expresse in terms of n (number of nodes)
+        as O(n+1 / 2) => O(n)"""
         # Create queue to store nodes not yet traversed in level-order
         queue = Queue()
         # Enqueue given starting node
