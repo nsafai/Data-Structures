@@ -311,9 +311,9 @@ class BinarySearchTree(object):
     def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
+        Running time: O(n) where is # of nodes, as we want to traverse every node
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # Traverse post-order without using recursion (stretch challenge)
+        # Initiate a set to keep track of which nodes we've visited
         traversed = set()
         # Create queue to store nodes not yet traversed
         stack = Stack()
@@ -321,22 +321,25 @@ class BinarySearchTree(object):
         stack.push(node)
         while not stack.is_empty():
             node = stack.peek()
+            # if there is a node on the right and it hasn't been traversed yet
             if node.right and node.right not in traversed:
                 stack.push(node.right)
+            # if there is a node on the left and it hasn't been traversed yet
             if node.left and node.left not in traversed:
                 stack.push(node.left)
+            # else if there's nowhere to go from this node
             if (
                 node.is_leaf()
                 or node.left is None and node.right in traversed 
                 or node.left in traversed and node.right is None
                 or node.left in traversed and node.right in traversed
             ):
+                # get reference to the top node and remove it from the stack
                 node = stack.pop()
+                # visit node's data
                 visit(node.data)
+                # add node to traversed so we don't visit it again
                 traversed.add(node)
-
-        
-            
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""

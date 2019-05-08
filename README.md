@@ -3,9 +3,9 @@ Coursework for Make School's CS 1.3 Data Structures class
 
 ## What's in here
 - [`bases`](/tree/master/bases.py): Convert a number from any base (2-36) to another
-- [`binary`](/tree/master/binarytree.py): Binary search tree built from scratch.
+- [`binarytree`](/tree/master/binarytree.py): Binary search tree built from scratch.
 - [`hashtable`](/tree/master/hashtable.py): Custom hashtable class w/ convenience methods
-- [`linkedlist`](/tree/master/linkedlist): Custom linked list class w/ indexes
+- [`linkedlist`](/tree/master/linkedlist.py): Custom linked list class w/ indexes
 - [`palindromes`](/tree/master/palindromes.py): Palindrome checking function (iterative and recursive)
 - [`queue`](/tree/master/queue.py): Two implementations of a queue: (1) built on native Python array, and (2) built using a custom [`linkedlist`](/tree/master/linkedlist.py) class
 - [`recursion`](/tree/master/recursion.py): Get a number's factorial (iterative and recursive)
