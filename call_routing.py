@@ -2,7 +2,7 @@ from binarytree import BinarySearchTree, BinaryTreeNode
 from hashtable import HashTable
 
 class CallRouter(object):
-
+    # pair programmed with github.com/alishalabi
     def __init__(self, phone_numbers_txt_files, route_prices_txt_files):
           # Turn txt files (data sources) into python objects
           self.phone_numbers = self.parse_phone_numbers(phone_numbers_txt_files)
@@ -15,7 +15,6 @@ class CallRouter(object):
           # Look up costs
           self.save_routing_costs(self.phone_numbers)
           
-
     def parse_phone_numbers(self, phone_numbers_txt_files):
         """Turns txt file into list of phone numbers without the +"""
         phone_numbers = []
@@ -67,21 +66,25 @@ class CallRouter(object):
         print(result)
         return result
 
-phone_numbers = ["86153023841"]
-routes = [
-  "449275049,0.49",
-  "86153,0.84",
-  "8130,0.68",
-  "4928843955,0.40",
-  "449187847,0.48",
-  "8197753,0.75",
-  "449916707,0.58",
-  "64655676,0.40",
-  "8615302,1.54",
-  "34924199,0.39",
-  "1941613,0.05",
-  "61312545,0.43",
-  "8615302,1.84",
-  "8615302,1.04"
-]
-call_router = CallRouter(phone_numbers, routes)
+def test_call_router():
+    phone_numbers = ["86153023841"]
+    routes = [
+      "449275049,0.49",
+      "86153,0.84",
+      "8130,0.68",
+      "4928843955,0.40",
+      "449187847,0.48",
+      "8197753,0.75",
+      "449916707,0.58",
+      "64655676,0.40",
+      "8615302,1.54",
+      "34924199,0.39",
+      "1941613,0.05",
+      "61312545,0.43",
+      "8615302,1.84",
+      "8615302,1.04"
+    ]
+    call_router = CallRouter(phone_numbers, routes)
+
+if __name__ == '__main__':
+    test_call_router()
