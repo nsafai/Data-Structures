@@ -24,6 +24,7 @@ def decode(digits, base):
 
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
+    For example, turn a decimal (0-9) number '4' into binary (0-1) number '100'
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
@@ -33,13 +34,12 @@ def encode(number, base):
     assert number >= 0, 'number is negative: {}'.format(number)
 
     answer = ""
-    q = None # q == quotient
-    # r == remainder
+    quotient = None
     
-    while q is not 0:
-        (q, r) = divmod(number, base) # divmod divides number by base and returns (quotient, remainder)
-        answer += NUM_CHARS[r] # find index that corresponds with character r
-        number = q # number get divided by base with each operation
+    while quotient is not 0:
+        (quotient, remainder) = divmod(number, base) # divmod divides number by base and returns (quotient, remainder)
+        answer += NUM_CHARS[remainder] # find index that corresponds with character r
+        number = quotient # number get divided by base with each operation
     
     return answer[::-1] # returns a string in reverse order
 

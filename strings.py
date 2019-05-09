@@ -47,7 +47,7 @@ def find_all_indexes(text, pattern):
     answer = []
 
     if pattern == '': # searching for empty string, return all results
-        return range(len(text)) # there's a blank character at each index
+        return list(range(len(text))) # there's a blank character at each index
 
     latest = find_index(text, pattern) # append latest index where pattern starts within text
 

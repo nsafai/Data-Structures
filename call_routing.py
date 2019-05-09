@@ -66,7 +66,8 @@ class CallRouter(object):
             # save number and cost to text file
         return result
 
-def test_call_router():
+def test_scenario_3():
+    """This is a test for Scenario 3: Get costs for 10k phone numbers and 10M route costs"""
     start_time = time.time()
     phone_numbers_path = 'call-routing-files/phone-numbers-10000.txt' # 10K
     route_prices_path = 'call-routing-files/route-costs-10000000.txt' # 10M 
@@ -79,5 +80,8 @@ def test_call_router():
     # 1K Phone #s | 1M routes  | 1.1 seconds
     # 1K Phone #s | 10M routes | 11.3 seconds
 
+def run_tests():
+    
+
 if __name__ == '__main__':
-    test_call_router()
+    test_scenario_3()
