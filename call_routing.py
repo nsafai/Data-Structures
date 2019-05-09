@@ -39,12 +39,12 @@ class CallRouter(object):
             # get prefix and price (separated by a comma)
             prefix, price = route.split(',')
 
-            if self.prefixes.contains(prefix):
+            if prefix in self.prices:
                 # Check if price is cheaper
                 if self.prices[prefix] > price:
                     self.prices[prefix] = price
             else: # We've never seen prefix before
-                self.prefixes.insert(prefix) # insert prefix into our list of prefixes
+                # self.prefixes.insert(prefix) # insert prefix into our list of prefixes
                 self.prices[prefix] = price # log the cost for that prefix
 
     def get_routing_cost(self, phone_number):
@@ -54,7 +54,7 @@ class CallRouter(object):
         # Search for full phone number inside prefix, then remove one digit at a time
         while last_digit_idx > 0:
             substring = phone_number[0:last_digit_idx]
-            if self.prefixes.contains(substring):
+            if substring in self.prices:
                 return self.prices[substring]
             last_digit_idx -= 1
         
