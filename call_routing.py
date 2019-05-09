@@ -2,7 +2,7 @@
 import random # to generate random numbers
 import re # for regular expressions
 import sys # for command line args
-from binarytree import BinarySearchTree, BinaryTreeNode # to store prefixes
+import time # for benchmarking purposes
 
 class CallRouter(object):
     def __init__(self, phone_numbers_path, route_prices_path):
@@ -15,12 +15,8 @@ class CallRouter(object):
 
     def turn_txt_file_into_array(self, path_to_file):
         """Turns txt file into list without '\n' or '+' characters"""
-        file = open(path_to_file, 'r')
-        file_content = file.read() # string representation of .txt file
-        file.close()
-        # (1) Remove '+', turn into array and (2) remove last (empty) item
-        array = re.sub(r'\+', "", file_content).split('\n')
-        array.pop() # remove last item of array which is empty
+        array = open(path_to_file, 'r').read().split('\n') # split at each new line
+        array.pop() # remove last item of array which is always empty due to new line at EOF
         return array
 
     def parse_phone_numbers(self, phone_numbers_path):
@@ -29,7 +25,7 @@ class CallRouter(object):
     
     def parse_routes(self, route_prices_path):
         """ Goes through route_prices_path and creates a binary tree """
-        # Parse .txt file
+        # Parse .txt file into a python array
         routes = self.turn_txt_file_into_array(route_prices_path)
 
         # For every route
@@ -71,11 +67,17 @@ class CallRouter(object):
         return result
 
 def test_call_router():
-    phone_numbers_path = 'call-routing-files/phone-numbers-1000.txt'
-    route_prices_path = 'call-routing-files/route-costs-35000.txt'
+    start_time = time.time()
+    phone_numbers_path = 'call-routing-files/phone-numbers-10000.txt' # 10K
+    route_prices_path = 'call-routing-files/route-costs-10000000.txt' # 10M 
+    # initalize the call router, which will begin parsing data sources its given automatically
     call_router = CallRouter(phone_numbers_path, route_prices_path)
-    # Look up costs
+    # Look up and print costs
     print(call_router.save_routing_costs(call_router.phone_numbers))
+    print('total run time:', (time.time() - start_time))
+    # Benchmarks on 2.7 GHz Intel Core i7 Processor w/ 16 GB 2133 MHz LPDDR3 RAM:
+    # 1K Phone #s | 1M routes  | 1.1 seconds
+    # 1K Phone #s | 10M routes | 11.3 seconds
 
 if __name__ == '__main__':
     test_call_router()
