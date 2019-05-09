@@ -8,8 +8,6 @@ class CallRouter(object):
     def __init__(self, phone_numbers_path, route_prices_path):
           # Turn txt files (data sources) into python objects
           self.phone_numbers = self.parse_phone_numbers(phone_numbers_path)
-          # Binary tree of prefixes. Using a BST allows us to find longest prefix as fast as possible
-          self.prefixes = BinarySearchTree()
           # Contains best price per unique prefix. Using a dict allows quick fetch AND update
           self.prices = {}
           # Parse routes which populates self.prefixes and self.prices
