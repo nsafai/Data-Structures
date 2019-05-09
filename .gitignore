@@ -3,5 +3,9 @@ call-routing-files/*-10000.txt
 call-routing-files/*-35000.txt
 call-routing-files/*-106000.txt
 call-routing-files/*-1000000*.txt
+__pycache__
 __pychache__
 __pycache__/*
+.vscode
+.DS_Store
+*cache*
