@@ -1,14 +1,16 @@
 #!python
 from hashtable import HashTable # from folder.filename import Class
 
-# Pair programmed with https://github.com/alishalabi/
+# Pair programmed with Ali Shalabi
 class Set(HashTable):
-    def __init__(self, max_size=8, items=[]):
+    def __init__(self, items=[], max_size=None):
         """
         initialize a new Set that can store at max_size items at most
         """
         HashTable.__init__(self)
         self.max_size = max_size
+        if (self.max_size == None): # if no valid max_size provided (default)
+            self.max_size = len(items) * 3 + 10
         for item in items:
             self.add(item)
 

@@ -8,20 +8,22 @@ if not hasattr(unittest.TestCase, 'assertCountEqual'):
 class SetTest(unittest.TestCase):
 
     def test_init(self):
-        s1 = Set(20)
+        s1 = Set([], 20)
         assert s1.max_size == 20
         assert s1.size == 0
-        s2 = Set(4, ['cat', 'dog', 'fish'])
+        s2 = Set(['cat', 'dog', 'fish'])
         assert s2.size == 3
+        assert s2.max_size == 19 # defaults to 3x starting items + 10
 
     def test_contains(self):
         """
         return a boolean indicating whether element is in this set
         """
-        s = Set(20)
+        s = Set([], 20)
         s.add('I')
         s.add('V')
         s.add('X')
+        assert s.size == 3
         assert s.contains('I') == True
         assert s.contains('V') == True
         assert s.contains(0) == False
@@ -32,13 +34,16 @@ class SetTest(unittest.TestCase):
         """
         add element to this set, if not present already
         """
-        s = Set(3)
+        s = Set([], 3)
         assert s.keys() == []
         s.add('I')
+        assert s.size == 1
         assert s.keys() == ['I']
         s.add('V')
+        assert s.size == 2
         self.assertCountEqual(s.keys(), ['I', 'V'])  # Ignore item order
         s.add('X')
+        assert s.size == 3
         self.assertCountEqual(s.keys(), ['I', 'V', 'X'])  # Ignore item order
         with self.assertRaises(Exception):
             s.add('A')  # Key does not exist
@@ -47,23 +52,21 @@ class SetTest(unittest.TestCase):
         """
         remove element from this set, if present, or else raise KeyError
         """
-        s = Set(20)
-        s.add('I')
-        s.add('V')
-        s.add('X')
-        self.assertCountEqual(s.keys(), ['I', 'V', 'X'])
-        s.remove('I')
-        self.assertCountEqual(s.keys(), ['V', 'X'])
+        s = Set([1, 2, 3], 20)
+    
+        self.assertCountEqual(s.keys(), [1, 2, 3])
+        s.remove(2)
+        self.assertCountEqual(s.keys(), [1, 3])
 
     def test_union(self):
         """
         return a new set that contains all items found in either this set and other_set
         """
-        s1 = Set(20)
+        s1 = Set([], 20)
         s1.add('I')
         s1.add('V')
         s1.add('A')
-        s2 = Set(20)
+        s2 = Set([], 20)
         s2.add('I')
         s2.add('V')
         union_s = s1.union(s2)
@@ -77,11 +80,11 @@ class SetTest(unittest.TestCase):
         """
         return a new set with items found in both this set and other_set
         """
-        s1 = Set(20)
+        s1 = Set([], 20)
         s1.add('I')
         s1.add('V')
         s1.add('B')
-        s2 = Set(20)
+        s2 = Set([], 20)
         s2.add('I')
         s2.add('V')
         intersection_s = s1.intersection(s2)
@@ -94,11 +97,11 @@ class SetTest(unittest.TestCase):
         """
         return a new set that contains items appearing in this set but not other_set
         """
-        s1 = Set(20)
+        s1 = Set([], 20)
         s1.add('I')
         s1.add('V')
         s1.add('A')
-        s2 = Set(20)
+        s2 = Set([], 20)
         s2.add('I')
         s2.add('V')
         difference_s = s1.difference(s2)
@@ -111,11 +114,10 @@ class SetTest(unittest.TestCase):
         """
         return a boolean indicating whether other_set is a subset of this set
         """
-        s1 = Set(20)
-        s1.add('I')
-        s1.add('V')
-        s1.add('A')
-        s2 = Set(20)
+        s1 = Set(['I', 'V', 'A'], 20)
+        assert s1.max_size == 20
+        s2 = Set([])
+        assert s2.max_size == 10 # defaults to 3x starting items length + 10
         s2.add('I')
         s2.add('V')
         assert s1.is_subset(s2) == True
