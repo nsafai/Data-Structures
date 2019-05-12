@@ -1,16 +1,24 @@
 #!python
+import time # for benchmarking
 
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found.
+    Time complexity: 
+    Best: O(p) where p is # of chars in p, if pattern starts at index 0 in 'text'
+    Worst: O(n) where n is # of chars in 'text', occurs if pattern not in text"""
+    start_time = time.time()
+
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
     num_correct_letters = 0
 
     if len(pattern) == 0: # for pattern ''
+        print('runtime was:', (time.time() - start_time))
         return 0 # all strings contain empty string
     elif len(pattern) > len(text): # pattern is too long to fit in text
+        print('runtime was:', (time.time() - start_time))
         return None
 
     # for every letter in text while there's enough characters left to fit pattern
@@ -23,35 +31,46 @@ def find_index(text, pattern):
                 break
 
             if num_correct_letters >= len(pattern): # if we've found full pattern
+                print('runtime was:', (time.time() - start_time))
                 return text_idx # return index of starting letter inside text
 
+    print('runtime was:', (time.time() - start_time))
     return None # reached end of word without finding a match
     # return text.index(pattern) if pattern in text else None # using built in python methods
 
 
 def contains(text, pattern):
-    """Return a boolean indicating whether pattern occurs in text."""
+    """Return a boolean indicating whether pattern occurs in text.
+    Time complexity: 
+    Best: O(p) where p is # of chars in p, if pattern starts at index 0 in 'text'
+    Worst: O(n) where n is # of chars in 'text', occurs if pattern not in text"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    
+
     return False if find_index(text, pattern) == None else True
     # return True if pattern in text else False # using built in python methods
 
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
-    or an empty list if not found."""
+    or an empty list if not found.
+    Time complexity: O(n - p) where n is # of characters in 'text' and p is length of the pattern. 
+    Why? Because this algorithm needs to find ALL indexes where pattern starts
+    so it needs to go through the entire text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
 
     answer = []
+    start_time = time.time()
 
     if pattern == '': # searching for empty string, return all results
+        print('runtime was:', (time.time() - start_time))
         return list(range(len(text))) # there's a blank character at each index
 
     latest = find_index(text, pattern) # append latest index where pattern starts within text
 
     if latest == None:
+        print('runtime was:', (time.time() - start_time))
         return answer
 
     while latest != None:
@@ -61,10 +80,12 @@ def find_all_indexes(text, pattern):
             latest = find_index(text[off_set:], pattern) + off_set # update latest
         else: # no more indexes to find
             latest = None # update latest
-        
+
+    print('runtime was:', (time.time() - start_time))    
     return answer
 
 def test_string_algorithms(text, pattern):
+    start_time = time.time()
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
     # TODO: Uncomment these lines after you implement find_index
@@ -73,6 +94,7 @@ def test_string_algorithms(text, pattern):
     # TODO: Uncomment these lines after you implement find_all_indexes
     indexes = find_all_indexes(text, pattern)
     print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
+    print('runtime for ALL tests was:', (time.time() - start_time))
 
 
 def main():
@@ -84,6 +106,7 @@ def main():
         pattern = args[1]
         test_string_algorithms(text, pattern)
     else:
+        start_time = time.time()
         script = sys.argv[0]
         print('Usage: {} text pattern'.format(script))
         print('Searches for occurrences of pattern in text')
@@ -91,6 +114,7 @@ def main():
         print("contains('abra cadabra', 'abra') => True")
         print("find_index('abra cadabra', 'abra') => 0")
         print("find_all_indexes('abra cadabra', 'abra') => [0, 8]")
+        print('runtime for basic tests was:', (time.time() - start_time))
 
 
 if __name__ == '__main__':
