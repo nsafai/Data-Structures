@@ -1,6 +1,6 @@
 #!python
 
-from strings import contains, find_index, find_all_indexes
+from strings import contains, contains_recursive, find_index, find_all_indexes
 import unittest
 
 
@@ -37,6 +37,38 @@ class StringsTest(unittest.TestCase):
         assert contains('bananas', 'nas') is True  # overlapping prefix
         # Write more test cases that check complex patterns or edge cases
         assert contains('spaces should work', ' ') is True
+    
+    def test_contains_recursive_with_matching_patterns(self):
+        # Positive test cases (examples) with matching patterns
+        assert contains_recursive('abc', '') is True  # all strings contain empty string
+        assert contains_recursive('abc', 'a') is True  # single letters are easy
+        assert contains_recursive('abc', 'b') is True
+        assert contains_recursive('abc', 'c') is True
+        assert contains_recursive('abc', 'ab') is True  # multiple letters are harder
+        assert contains_recursive('abc', 'bc') is True
+        assert contains_recursive('abc', 'abc') is True  # all strings contain themselves
+        assert contains_recursive('aaa', 'a') is True  # multiple occurrences
+        assert contains_recursive('aaa', 'aa') is True  # overlapping pattern
+        # Write more positive test cases with assert is True statements
+        assert contains_recursive('acac', 'ac') is True
+
+    def test_contains_recursive_with_non_matching_patterns(self):
+        # Negative test cases (counterexamples) with non-matching patterns
+        assert contains_recursive('abc', 'z') is False  # remember to test other letters
+        assert contains_recursive('abc', 'ac') is False  # important to test close cases
+        assert contains_recursive('abc', 'az') is False  # first letter, but not last
+        assert contains_recursive('abc', 'abz') is False  # first 2 letters, but not last
+        # Write more negative test cases with assert is False statements
+        assert contains_recursive('', 'a') is False
+
+    def test_contains_recursive_with_complex_patterns(self):
+        # Difficult test cases (examples) with complex patterns
+        assert contains_recursive('ababc', 'ab') is True  # multiple occurrences
+        assert contains_recursive('banana', 'na') is True  # multiple occurrences
+        assert contains_recursive('ababc', 'abc') is True  # overlapping prefix
+        assert contains_recursive('bananas', 'nas') is True  # overlapping prefix
+        # Write more test cases that check complex patterns or edge cases
+        assert contains_recursive('spaces should work', ' ') is True
 
     def test_find_index_with_matching_patterns(self):
         # Positive test cases (examples) with matching patterns

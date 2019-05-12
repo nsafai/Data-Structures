@@ -50,6 +50,23 @@ def contains(text, pattern):
     return False if find_index(text, pattern) == None else True
     # return True if pattern in text else False # using built in python methods
 
+def contains_recursive(text, pattern): # STRETCH CHALLENGE
+    """Return a boolean indicating whether pattern occurs in text.
+    Time complexity: 
+    Best: O(p) where p is # of chars in p, if pattern starts at index 0 in 'text'
+    Worst: O(n) where n is # of chars in 'text', occurs if pattern not in text"""
+    assert isinstance(text, str), 'text is not a string: {}'.format(text)
+    assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+
+    if len(pattern) == 0:
+        return True
+    elif len(text) == 0:
+        return False
+    else:
+        if text[0:len(pattern)] == pattern:
+            return True
+        else:
+            return contains(text[1:], pattern) 
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
