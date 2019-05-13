@@ -93,7 +93,7 @@ class BinarySearchTree(object):
         Worst case running time: O(log(n)) because we can find parent node
         without visiting every node, by simply comparing item to each node,
         and deciding whether to go down the tree via left or right, until
-        we reach a leaf""""
+        we reach a leaf"""
         # Handle the case where the tree is empty
         if self.is_empty():
             # Create a new root node
@@ -219,7 +219,7 @@ class BinarySearchTree(object):
         Worst case running time: O(log(n)) because we can find parent node
         without visiting every node, by simply comparing item to each node,
         and deciding whether to go down the tree via left or right, until
-        we reach a leaf""""
+        we reach a leaf"""
         # Check if reached end of list
         if node is None:
             # parent will None on first run
@@ -399,7 +399,7 @@ class BinarySearchTree(object):
                 queue.enqueue(node.right)
 
 
- 
+def test_binary_search_tree(): 
     # Create a complete binary search tree of 3, 7, or 15 items in level-order
     # items = [2, 1, 3]
     items = [4, 2, 6, 1, 3, 5, 7]
